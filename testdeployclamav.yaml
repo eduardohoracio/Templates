@@ -1,0 +1,12 @@
+---
+- hosts: all
+  become: true
+  vars:
+     packages: [ 'clamav', 'clamav-daemon' ]
+  tasks:
+     - name: Install Packages
+       apt: name={{ item }} state=latest
+       with_items: "{{ packages }}"
+- name: Reboot Linux
+  command: cd /sbin
+  command: sudo shutdown -r

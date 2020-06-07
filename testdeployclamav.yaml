@@ -2,8 +2,10 @@
 - hosts: all
   become: true
   vars:
-     packages: [ 'clamav', 'clamav-daemon' ]
+     package1: clamav
+     package2: clamav-daemon
   tasks:
-     - name: Install Packages
-       apt: name={{ item }} state=latest
-       with_items: "{{ packages }}"
+     - name: Install Package ClamAV
+       apt: name={{ package1 }} state=latest
+     - name: Install Package ClamAv-Daemon
+       apt: name={{ package2 }} state=latest

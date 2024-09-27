@@ -1,0 +1,18 @@
+# File: .github/workflows/use-jira-check.yml
+
+name: Use Jira Issue Key Check Workflow
+
+on:
+  push:
+    branches:
+      - master
+      - main
+  pull_request:
+
+jobs:
+  call-reusable-workflow:
+    uses: eduardohoracio/my-repo-tests/.github/workflows/reusable-jira-check.yml@main
+    with:
+      # If your reusable workflow requires inputs, define them here
+    secrets:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

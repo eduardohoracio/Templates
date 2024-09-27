@@ -11,7 +11,7 @@ on:
 
 jobs:
   call-reusable-workflow:
-    uses: eduardohoracio/my-repo-tests/.github/workflows/reusable-jira-check.yml@main
+    uses: eduardohoracio/my-repo-tests/jira-templates/reusable-jira-check.yml@main
     with:
       # If your reusable workflow requires inputs, define them here
     secrets:

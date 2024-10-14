@@ -37,7 +37,7 @@ jobs:
           # This will add both a CLI output to the console and create a results.sarif file
           output_format: cli,sarif
           output_file_path: console,results.sarif
-          directory: ./
+          directory: .
           quiet: true
          #file: example/tfplan.json
          #check: CKV_AWS_1

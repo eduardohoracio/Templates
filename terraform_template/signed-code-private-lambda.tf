@@ -244,11 +244,6 @@ resource "aws_iam_role_policy" "lambda_policy" {
         Effect   = "Allow",
         Action   = ["s3:GetObject", "s3:PutObject"],
         Resource = ["arn:aws:s3:::private-bt-lambda-code-signed/*"]
-      },
-      {
-        Effect   = "Allow",
-        Action   = ["dynamodb:GetItem", "dynamodb:PutItem"],
-        Resource = ["arn:aws:dynamodb:us-east-1:123456789012:table/my-private-table"]
       }
     ]
   })

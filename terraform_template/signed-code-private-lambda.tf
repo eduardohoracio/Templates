@@ -85,6 +85,42 @@ resource "aws_s3_bucket" "private_bucket" {
   bucket = "private-bt-lambda-code-signed" # Replace with your desired bucket name
 }
 
+resource "aws_s3_bucket_versioning" "east" {
+  bucket = aws_s3_bucket.private_bucket.id
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
+
+resource "aws_s3_bucket" "west" {
+  provider = aws.west
+  bucket   = "tf-test-bucket-west-12345"
+}
+
+resource "aws_s3_bucket_versioning" "west" {
+  provider = aws.west
+
+  bucket = aws_s3_bucket.west.id
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
+
+resource "aws_s3_bucket_replication_configuration" "east_to_west" {
+  depends_on = [aws_s3_bucket_versioning.east]
+  role       = aws_iam_role.east_replication.arn
+  bucket     = aws_s3_bucket.private_bucket.id
+
+  rule {
+    status = "Enabled"
+
+    destination {
+      bucket        = aws_s3_bucket.west.arn
+      storage_class = "STANDARD"
+    }
+  }
+}
+
 # Enable Bucket Versioning
 resource "aws_s3_bucket_versioning" "private_bucket_versioning" {
   bucket = aws_s3_bucket.private_bucket.id

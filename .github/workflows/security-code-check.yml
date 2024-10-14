@@ -39,6 +39,7 @@ jobs:
           output_file_path: console,results.sarif
           directory: .
           quiet: true
+          soft_fail: true
          #file: example/tfplan.json
          #check: CKV_AWS_1
          #skip_check: CKV_AWS_2

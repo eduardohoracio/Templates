@@ -1,3 +1,4 @@
+#Template custom based on https://github.com/bridgecrewio/checkov-action/tree/master/
 name: checkov
 
 # Controls when the workflow will run
@@ -36,7 +37,21 @@ jobs:
           # This will add both a CLI output to the console and create a results.sarif file
           output_format: cli,sarif
           output_file_path: console,results.sarif
-          directory: terraform_template/*.tf
+          directory: /*
+          quiet: true
+         #file: example/tfplan.json
+         #check: CKV_AWS_1
+         #skip_check: CKV_AWS_2
+         #framework: terraform
+         #skip_framework: terraform
+         #skip_cve_package: CVE_2019_8331
+         #download_external_modules: true
+         #repo_root_for_plan_enrichment: example/
+         #var_file: ./testdir/gocd.yaml
+         #log_level: DEBUG
+         #config_file: path/this_file
+         #baseline: cloudformation/.checkov.baseline
+         #use_enforcement_rules: true
         
       - name: Upload SARIF file
         uses: github/codeql-action/upload-sarif@v2

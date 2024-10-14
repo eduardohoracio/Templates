@@ -5,6 +5,15 @@ provider "aws" {
   profile                  = "my-access-profile"
 }
 
+# Lambda resource policy to prevent public access
+resource "aws_lambda_permission" "allow_bucket" {
+  statement_id  = "DenyPublicInvoke"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.private_lambda.function_name
+  principal     = "s3.amazonaws.com"
+  source_arn    = aws_s3_bucket.private_bucket.arn
+}
+
 # Create VPC for private access to Lambda
 resource "aws_vpc" "vpc" {
   cidr_block = "10.0.0.0/16"

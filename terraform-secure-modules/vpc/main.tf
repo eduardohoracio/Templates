@@ -7,6 +7,34 @@ resource "aws_vpc" "main" {
   }
 }
 
+resource "aws_default_security_group" "default" {
+  vpc_id = aws_vpc.main.id
+
+  # ingress {
+  #   protocol  = "-1"
+  #   self      = true
+  #   from_port = 0
+  #   to_port   = 0
+  # }
+
+  # egress {
+  #   from_port   = 0
+  #   to_port     = 0
+  #   protocol    = "-1"
+  #   cidr_blocks = ["0.0.0.0/0"]
+  # }
+  tags = {
+    Name = "DO-NOT-USE-DEFAULT-SG"
+  }
+}
+
+resource "aws_flow_log" "flow_log" {
+  iam_role_arn    = aws_iam_role.flow_log.arn
+  log_destination = aws_cloudwatch_log_group.flow_log.arn
+  traffic_type    = "ALL"
+  vpc_id          = aws_vpc.main.id
+}
+
 resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.main.id
   tags = {

@@ -119,10 +119,6 @@ variable "log_bucket_name" {
   type = string
 }
   
-variable "aws_region" {
-  type = string
-}
-
 variable "function_name" {
   type = string
 }
@@ -182,8 +178,4 @@ variable "tracing_mode" {
 variable "log_retention_days" {
   type = number
   default = 14
-}
-
-variable "common_tags" {
-  type = map(string)
 }
